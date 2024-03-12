@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Contador de Pitcheos</title>
+</head>
+<body>
+    <div class="container">
+        <div class="counter">
+            <p>Pitcheos: <span id="pitchCount">0</span></p>
+            <p>Bolas: <span id="ballCount">0</span></p>
+            <p>Strikes: <span id="strikeCount">0</span></p>
+            <p>Porcentaje de Strikes: <span id="strikePercentage">0%</span></p>
+            <label for="pitchType">Tipo de Pitcheo:</label>
+            <select id="pitchType" onchange="selectPitchType()">
+                <option value="Fastball">Fastball</option>
+                <option value="Curveball">Curveball</option>
+                <option value="Slider">Slider</option>
+                <option value="Change up">Change up</option>
+                <option value="Splitter">Splitter</option>
+                <option value="Cutter">Cutter</option>
+                <option value="Sinker">Sinker</option>
+            </select>
+            <button onclick="incrementBall()">Bola</button>
+            <button onclick="incrementStrike()">Strike</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.counter {
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-width: 300px;
+}
+
+select, button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+let pitchCount = 0;
+let ballCount = 0;
+let strikeCount = 0;
+
+function updateCounts() {
+    document.getElementById("pitchCount").innerText = pitchCount;
+    document.getElementById("ballCount").innerText = ballCount;
+    document.getElementById("strikeCount").innerText = strikeCount;
+
+    const strikePercentage = pitchCount > 0 ? ((strikeCount / pitchCount) * 100).toFixed(2) + "%" : "0%";
+    document.getElementById("strikePercentage").innerText = strikePercentage;
+}
+
+function selectPitchType() {
+    const pitchType = document.getElementById("pitchType").value;
+    console.log(`Tipo de Pitcheo: ${pitchType}`);
+    // Puedes agregar lógica adicional aquí, como registrar el tipo de pitcheo seleccionado.
+}
+
+function incrementBall() {
+    ballCount++;
+    pitchCount++;
+    updateCounts();
+}
+
+function incrementStrike() {
+    strikeCount++;
+    pitchCount++;
+    updateCounts();
+}
